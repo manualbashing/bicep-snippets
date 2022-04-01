@@ -67,7 +67,8 @@ resource workflow 'Microsoft.Logic/workflows@2019-05-01' = {
 }
 
 resource roleAssignment 'Microsoft.Authorization/roleAssignments@2020-04-01-preview' = {
-  name: guid('Log Analytics Reader', workspaceName, workflowName)
+  scope: workspace
+  name: guid(workspace.id, workflowName, logAnalyticsReaderRoleDefinitionId)
   properties: {
     roleDefinitionId: logAnalyticsReaderRoleDefinitionId
     principalId: reference(workflow.id, workflow.apiVersion, 'full').identity.principalId
