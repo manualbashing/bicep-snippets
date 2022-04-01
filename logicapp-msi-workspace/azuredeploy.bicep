@@ -54,7 +54,7 @@ resource workflow 'Microsoft.Logic/workflows@2019-05-01' = {
               query: 'print "foo"'
             }
             #disable-next-line no-hardcoded-env-urls
-            uri: 'https://api.loganalytics.io/v1/workspaces/${workspace.id}/query'
+            uri: 'https://api.loganalytics.io/v1/workspaces/${workspace.properties.customerId}/query'
           }
         }
       }
@@ -79,3 +79,4 @@ resource roleAssignment 'Microsoft.Authorization/roleAssignments@2020-04-01-prev
   }
 }
 
+output workspace object = workspace
