@@ -2,8 +2,6 @@ param location string = resourceGroup().location
 param workflowName string = 'logic-query-${uniqueString(resourceGroup().id)}'
 param workspaceName string = 'logs-query-${uniqueString(resourceGroup().id)}'
 
-var logAnalyticsReaderRoleDefinitionId = '73c42c96-874c-492b-b04d-ab87d138a893'
-
 resource workspace 'microsoft.operationalinsights/workspaces@2021-12-01-preview' = {
   name: workspaceName
   location: location
@@ -66,12 +64,18 @@ resource workflow 'Microsoft.Logic/workflows@2019-05-01' = {
   }
 }
 
+resource logAnalyticsReaderRoleDefinition 'Microsoft.Authorization/roleDefinitions@2018-01-01-preview' existing = {
+  scope: subscription()
+  name: '73c42c96-874c-492b-b04d-ab87d138a893'
+}
+
 resource roleAssignment 'Microsoft.Authorization/roleAssignments@2020-04-01-preview' = {
   scope: workspace
-  name: guid(workspace.id, workflowName, logAnalyticsReaderRoleDefinitionId)
+  name: guid(workspace.id, workflowName, logAnalyticsReaderRoleDefinition.id)
   properties: {
-    roleDefinitionId: logAnalyticsReaderRoleDefinitionId
+    roleDefinitionId: logAnalyticsReaderRoleDefinition.id
     principalId: reference(workflow.id, workflow.apiVersion, 'full').identity.principalId
+    principalType: 'ServicePrincipal'
   }
 }
 
