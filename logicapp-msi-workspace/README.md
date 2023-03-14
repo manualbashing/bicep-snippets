@@ -2,6 +2,8 @@
 
 This is currently not possible using the Logic App connection. This example uses the Azure REST api instead.
 
+For more information see the following blog post: [Query Azure Log Analytics from Logic App using Managed Identity | manualbashing.github.io](https://manualbashing.github.io/posts/logicapp-loganalytics-mi/).
+
 ## Deployment
 
 Make sure you have the latest version of the [Azure CLI](https://docs.microsoft.com/en-us/cli/azure/install-azure-cli) installed.
