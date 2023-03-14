@@ -5,3 +5,4 @@ A collection of snippets for common (and not so common) bicep deployment scenari
 ## Snippets
 
 - [Access Log Analytics Workspace from Logic App using MSI](./logicapp-msi-workspace)
+- [Transform data with XPath in Logic App](./logicapp-xpath)
